@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+  <title>TogethArt | 회원가입</title>
+</head>
+<body>
+
+  <div class="input-container">
+    <!-- 회원가입 폼 -->
+    <form id="form" method="POST">
+      <fieldset>
+        <legend style="text-align: center;">회원가입</legend>
+        <!-- 이메일 주소 -->
+        <div class="form-group">
+          <label for="memberEmail" class="form-label mt-4">Email address</label>
+          <input type="email" class="form-control" name ="memberEmail" id="memberEmail" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+        <!-- 비밀번호 -->
+        <div class="form-group">
+          <label for="memberPwd" class="form-label mt-4">Password</label>
+          <input type="password" class="form-control" name="memberPwd" id="memberPwd" placeholder="Password" autocomplete="off">
+        </div>
+        <!-- 유저네임 -->
+        <div class="form-group">
+          <label for="memberUsername" class="form-label mt-4">Username</label>
+          <input type="text" class="form-control" name="memberUsername" id="memberUsername" placeholder="Username" autocomplete="off">
+        </div>
+        <!-- 생일 -->
+        <div class="form-group">
+          <label for="memberBirth" class="form-label mt-4">Birth</label>
+          <input type="date" class="form-control" name="memberBirth" id="memberBirth" autocomplete="off">
+        </div>
+        <!-- </fieldset> -->
+        <!-- 관심 카테고리 -->
+        <!-- <fieldset class="form-group"> -->
+          <!-- <label class="form-label mt-4">Categories ( 5 개 까지 선택 가능합니다. )</label> 
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="3D Art" id="category">
+            <label class="form-check-label" for="category">
+              3D Art
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Abstract" id="category">
+            <label class="form-check-label" for="category">
+              Abstract
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Animal" id="category">
+            <label class="form-check-label" for="category">
+              Animal
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Anime" id="category">
+            <label class="form-check-label" for="category">
+              Anime
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Architecture" id="category">
+            <label class="form-check-label" for="category">
+              Architecture
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Celebrity" id="category">
+            <label class="form-check-label" for="category">
+              Celebrity
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Character" id="category">
+            <label class="form-check-label" for="category">
+              Character
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Comics" id="category">
+            <label class="form-check-label" for="category">
+              Comics
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Fantasy" id="category">
+            <label class="form-check-label" for="category">
+              Fantasy
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Food" id="category">
+            <label class="form-check-label" for="category">
+              Food
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Games" id="category">
+            <label class="form-check-label" for="category">
+              Games
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Holiday" id="category">
+            <label class="form-check-label" for="category">
+              Holiday
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Men" id="category">
+            <label class="form-check-label" for="category">
+              Men
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Millitary" id="category">
+            <label class="form-check-label" for="category">
+              Millitary
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Movie" id="category">
+            <label class="form-check-label" for="category">
+              Movie
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Nature" id="category">
+            <label class="form-check-label" for="category">
+              Nature
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Photography" id="category">
+            <label class="form-check-label" for="category">
+              Photography
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Pop Art" id="category">
+            <label class="form-check-label" for="category">
+              Pop Art
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Sci-Fi" id="category">
+            <label class="form-check-label" for="category">
+              Sci-Fi
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Space" id="category">
+            <label class="form-check-label" for="category">
+              Space
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Sports" id="category">
+            <label class="form-check-label" for="category">
+              Sports
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Technology" id="category">
+            <label class="form-check-label" for="category">
+              Technology
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Travel" id="category">
+            <label class="form-check-label" for="category">
+              Travel
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Vehicle" id="category">
+            <label class="form-check-label" for="category">
+              Vehicle
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Women" id="category">
+            <label class="form-check-label" for="category">
+              Women
+            </label>
+          </div> -->
+
+        <button type="submit" class="btn btn-success" style="float: right; margin-top:28px;">회원가입</button>
+      </fieldset>
+    </form>
+  </div>
+  <script th:src="@{js/member/signup.js}"></script>
+</body>
+</html>

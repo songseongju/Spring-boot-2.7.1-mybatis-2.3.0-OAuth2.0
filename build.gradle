@@ -1,0 +1,77 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+}
+
+group = 'com.team'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+
+    //mybatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
+
+    //jwt 라이브러리
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+    //mysql
+    runtimeOnly 'com.mysql:mysql-connector-j:8.0.31'
+    // compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
+
+    //lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    /*providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'*/
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+    //스프링 시큐리티
+    implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.6'  /* spring-security-crypto */
+    //스프링 시큐리티 관련
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+    //OAuth2 client
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-client', version: '2.5.4'
+
+    //비밀번호 메일전송 관련
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation group: 'org.apache.commons', name: 'commons-email', version: '1.4'
+
+    //파싱 라이브러리
+
+
+    implementation 'com.google.code.gson:gson'
+
+}
+/*
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+*/

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.togethart.repository.subscription.SubscriptionMapper">
+
+    <!-- 구독 하기 -->
+    <insert id="insertSubscription" parameterType="com.team.togethart.dto.subscription.SubscriptionAddRequest">
+        INSERT
+        INTO subscription
+        (subscribe_from
+        , subscribe_to
+        , start_date
+        , expire_date)
+        VALUES
+        (#{subscribe_from}
+        , #{subscribe_to}
+        , NOW()
+        , DATEADD(MONTH, 1, NOW()))
+    </insert>
+
+    <select id="getSubscription" resultType="long">
+        SELECT
+        COUNT(*)
+        FROM
+        subscription
+        WHERE
+        subscribe_to
+        = #{subscribe_to}
+        AND
+        subscribe_from
+        = #{subscribe_from}
+    </select>
+
+    <!-- 구독 자격 검증 !-->
+    <update id="updateMemberAuth" parameterType="com.team.togethart.dto.subscription.SubscriptionAuthRequest">
+
+        UPDATE member
+        SET member_auth = CASE
+        WHEN (
+        SELECT COUNT(*)
+        FROM ARTWORK
+        WHERE ARTWORK.member_id = #{member_id}
+        AND ARTWORK.like_count >= 100
+        ) >= 10
+        THEN 1
+        ELSE 0
+        END
+        WHERE member_id = #{member_id}
+    </update>
+
+    <!-- 내가 구독하는 사람들의 이름 리스트-->
+    <select id="getsubscribefrom" resultType="com.team.togethart.dto.subscription.InfoResponseDTO">
+        SELECT
+        m.member_username AS memberUsername,
+        s.START_DATE AS startDate,
+        s.expire_date AS expireDate
+        FROM
+        subscription AS s
+        JOIN
+        member AS m
+        ON
+        s.subscribe_from = m.member_id
+        where
+        subscribe_to = #{member_id}
+    </select>
+
+    <!-- 나를 구독하는 사람들의 이름 리스트-->
+    <select id="getsubscribeto" resultType="com.team.togethart.dto.subscription.InfoResponseDTO">
+
+        SELECT
+        m.member_username AS memberUsername,
+        s.START_DATE AS startDate,
+        s.expire_date AS expireDate
+        FROM
+        subscription AS s
+        JOIN
+        member AS m
+        ON
+        s.subscribe_to = m.member_id
+        WHERE
+        s.subscribe_from = #{member_id}
+    </select>
+
+    <!-- 만료시간 전 구독 취소하기-->
+    
+
+    <delete id="deletesub" parameterType="com.team.togethart.dto.subscription.DeleteSubDTO">
+        DELETE FROM subscription
+        WHERE subscribe_from
+        = #{subscribeFrom}
+        AND subscribe_to
+        = #{subscribeTo}
+    </delete>
+
+</mapper>

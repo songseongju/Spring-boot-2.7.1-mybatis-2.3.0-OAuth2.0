@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.togethart.repository.follow.FollowMapper">
+
+    <!-- 팔로우 -->
+    <insert id="insertFollow" parameterType="com.team.togethart.dto.follow.FollowAddRequest">
+        INSERT
+        INTO follow
+        (follow_from
+        , follow_to)
+        VALUES
+        (#{follow_from}
+        , #{follow_to})
+    </insert>
+
+    <!-- 언팔로우(= 팔로우 삭제) -->
+    <delete id="deleteFollow" parameterType="com.team.togethart.dto.follow.FollowAddRequest">
+        DELETE
+        FROM follow
+        WHERE follow_from
+        = #{follow_from}
+        AND follow_to
+        = #{follow_to}
+    </delete>
+
+    <select id="getFollow" resultType="long">
+        SELECT COUNT(*) FROM follow
+        WHERE follow_to = #{follow_to} AND follow_from = #{follow_from}
+    </select>
+
+    <!--    &lt;!&ndash; 팔로우한 사람의 그림 가져오기? &ndash;&gt;-->
+    <!--    <select id="getFolloweePosts" parameterType="Long" resultType="com.team.togethart.dto.follow.FollowAddRequest">-->
+    <!--        SELECT a.*-->
+    <!--        FROM artwork a-->
+    <!--        INNER JOIN follow f ON a.member_id = f.followee_id-->
+    <!--        WHERE f.follower_id = #{memberId}-->
+    <!--    </select>-->
+
+    <!-- 나를 팔로우 하는 사람들 수 -->
+
+
+    <!-- 내가 팔로우 한 사람들의 수-->
+
+
+    <!-- 내가 팔로우 하는 사람들의 이름 리스트-->
+    <select id="getfollowfrom" resultType="java.lang.String">
+        SELECT
+        m.member_username
+        FROM
+        follow AS f
+        JOIN
+        member AS m
+        ON
+        f.follow_to
+        = m.member_id
+        WHERE
+        f.follow_from
+        = #{member_id}
+    </select>
+
+    <!-- 나를 팔로우 하는 사람들의 이름 리스트-->
+    <select id="getfollowto" resultType="java.lang.String">
+        SELECT
+        m.member_username
+        FROM
+        follow AS f
+        JOIN
+        member AS m
+        ON
+        f.follow_from
+        = m.member_id
+        WHERE
+        f.follow_to
+        = #{member_id}
+    </select>
+
+</mapper>
+

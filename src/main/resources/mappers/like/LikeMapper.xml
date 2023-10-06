@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.togethart.repository.like.LikeMapper">
+
+    <!--
+    조회 결과 1 이면 좋아요 한 상태
+    조회 결과 0 이면 좋아요 하지 않은 상태 -->
+    <select id="selectLike" parameterType="com.team.togethart.dto.like.LikeRequest" resultType="int">
+        SELECT count(*)
+          FROM likes
+         WHERE artwork_id = #{artworkId} AND member_id = #{memberId}
+    </select>
+
+    <!-- 좋아요 생성-->
+    <insert id="insertLike" parameterType="com.team.togethart.dto.like.LikeRequest">
+        INSERT INTO likes (
+            like_id,
+            artwork_id,
+            member_id
+        )
+        VALUES (
+            DEFAULT,
+            #{artworkId},
+            #{memberId}
+        )
+    </insert>
+
+    <!-- 좋아요 삭제-->
+    <delete id="deleteLike" parameterType="com.team.togethart.dto.like.LikeRequest">
+        DELETE
+          FROM likes
+         WHERE artwork_id = #{artworkId} AND member_id = #{memberId}
+    </delete>
+
+
+    <!-- 한 작품에 대한 좋아요 수-->
+    <select id="selectCount" parameterType="java.lang.Long" resultType="int">
+        SELECT count(*)
+          FROM likes
+         WHERE artwork_id = #{artworkId}
+    </select>
+
+
+    <update id="updateLikeCountPlus" parameterType="java.lang.Long">
+        UPDATE artwork
+           SET like_count = like_count + 1
+         WHERE artwork_id = #{artworkId}
+    </update>
+
+    <update id="updateLikeCountMinus" parameterType="java.lang.Long">
+        UPDATE artwork
+           SET like_count = like_count - 1
+         WHERE artwork_id = #{artworkId}
+    </update>
+
+    <!-- artwork_category 테이블 더미 데이터 넣어서 작업 필요.
+    메서드 id 한 번 더 생각 해볼 것. 라이크를 통한 프리퍼 플러스, 조회를 통한 프리퍼 플러스 등등
+    해당 쿼리문은 insertLike 작동 시 서비스에서 함께 작동.-->
+    <update id="likePreferPlus" parameterType="com.team.togethart.dto.like.LikeRequest">
+        UPDATE preference
+           SET prefer_level = prefer_level + 1
+         WHERE member_id = #{memberId}
+               AND category_id IN (SELECT category_id
+                                     FROM artwork_category
+                                    WHERE artwork_id = #{artworkId});
+    </update>
+
+    <!-- 위 쿼리문과 마찬가지
+    해당 쿼리문은 deleteLike 작동 시 서비스에서 함께 작동.-->
+    <update id="likePreferMinus" parameterType="com.team.togethart.dto.like.LikeRequest">
+        UPDATE preference
+           SET prefer_level = prefer_level - 1
+         WHERE member_id = #{memberId}
+               AND category_id IN (SELECT category_id
+                                     FROM artwork_category
+                                    WHERE artwork_id = #{artworkId});
+    </update>
+
+
+
+</mapper>

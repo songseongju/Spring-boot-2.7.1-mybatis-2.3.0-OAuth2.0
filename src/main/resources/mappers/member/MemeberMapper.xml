@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.togethart.repository.member.MemberMapper">
+
+
+    <!-- 로그인 -->
+    <select id="findById" parameterType="java.lang.String" resultType="com.team.togethart.dto.member.MemberAddRequest">
+        SELECT
+        *
+        FROM
+        togetharttest.member
+        WHERE
+        member_email
+        = #{memberEmail}
+
+    </select>
+
+    <select id="findByPwd" parameterType="java.lang.String" resultType="com.team.togethart.dto.member.MemberAddRequest">
+        SELECT
+        *
+        FROM
+        member
+        WHERE member_pwd
+        = #{memberPwd}
+    </select>
+
+    <!--회원가입-->
+    <insert id="insert" parameterType="com.team.togethart.dto.member.MemberAddRequest">
+        insert into togetharttest.member (
+        member_email
+        ,member_pwd
+        ,member_username
+        ,member_regi_type
+        ,member_regi_date
+        ,member_auth
+        )values(
+        #{memberEmail}
+        ,#{memberPwd}
+        ,#{memberUsername}
+        ,#{memberRegiType}
+        ,#{memberRegiDate}
+        ,#{memberAuth}
+        );
+
+    </insert>
+
+    <!-- 중복체크 -->
+    <select id="isIdDuplicated" parameterType="java.lang.String" resultType="java.lang.Boolean">
+        SELECT
+        COUNT(*) > 0
+        FROM member
+        WHERE member_email = #{memberEmail}
+    </select>
+
+    <!-- 이메일로 회원 정보 가져오기(중복) -->
+    <select id="useById" parameterType="java.lang.String" resultType="com.team.togethart.dto.member.MemberAddRequest">
+        SELECT
+        *
+        FROM
+        member
+        WHERE
+        member_email
+        = #{memberEmail}
+    </select>
+
+    <!-- 이메일 찾기 -->
+    <select id="findUserIdsByNameAndEmail" resultType="String">
+        select
+        member_email
+        FROM
+        togetharttest.member
+        WHERE
+        member_username
+        = #{memberUsername};
+    </select>
+
+    <!--비밀번호 찾기-->
+
+    <select id="findUserIdsByNameAndPwd" resultType="String">
+        select
+        member_pwd
+        FROM
+        togetharttest.member
+        WHERE
+        member_email
+        = #{memberEmail};
+    </select>
+
+
+
+    <!-- (회원 수정) 이메일 가져오기 -->
+
+    <select id="getCommonInfoById" resultType="com.team.togethart.dto.member.MemberUpdateRequest">
+
+        SELECT
+        *
+        FROM
+        member
+        WHERE
+        member_email
+        = #{memberEmail};
+
+    </select>
+
+
+    <!-- 회원찾기 -->
+    <select id="findByName" resultType="String">
+        select
+        *
+        FROM
+        togetharttest.member
+        WHERE
+        member_username
+        = #{memberUsername};
+    </select>
+
+
+
+
+    <!-- 회원 탈퇴 -->
+
+    <delete id="deleteByUserId">
+        DELETE
+        FROM
+        togetharttest.member
+        WHERE
+        member_email
+        = #{memberEmail};
+
+    </delete>
+
+
+
+<!--
+    <select id="getCommonReservations" resultType="com.e114.e114_eumyuratodemo1.dto.ReservationDTO">
+        SELECT r.*, sc.name
+        FROM reservation AS r
+        INNER JOIN schedules AS s ON r.sId = s.id
+        INNER JOIN small_concert AS sc ON s.conId = sc.id
+        WHERE r.cId = #{cId} ORDER BY payTime DESC
+    </select>
+
+    <select id="searchCommonReservations" resultType="com.e114.e114_eumyuratodemo1.dto.ReservationDTO">
+        SELECT r.*, sc.name
+        FROM reservation AS r
+        INNER JOIN schedules AS s ON r.sId = s.id
+        INNER JOIN small_concert AS sc ON s.conId = sc.id
+        WHERE cId = #{cId} and ${column} LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY payTime DESC
+    </select>
+
+    <delete id="deleteCommonReservation">
+        DELETE FROM reservation WHERE id = #{param1}
+    </delete>
+
+    <delete id="deleteCommonTicket">
+        DELETE FROM ticket WHERE rid = #{param1}
+    </delete>
+                                                        -->
+    <!--회원정보 수정-->
+
+    <select id="selectCommonMemberById" resultType="com.team.togethart.dto.member.MemberUpdateRequest">
+        SELECT
+        *
+        FROM
+        togetharttest.member
+        WHERE
+        member_email
+        = #{memberEmail};
+
+    </select>
+
+
+   <!-- 수정페이지 -->
+
+    <update id="modifyCommonWithoutImage" parameterType="com.team.togethart.dto.member.MemberUpdateRequest">
+        UPDATE
+        togetharttest.member
+        SET
+        member_pwd
+        = #{memberPwd}
+        ,member_birth
+        = #{memberBirth}
+        ,member_intro
+        = #{memberIntro}
+        WHERE
+        member_email
+        = #{memberEmail};
+    </update>
+
+    <update id="commonModify" parameterType="com.team.togethart.dto.member.MemberUpdateRequest">
+        UPDATE
+        togetharttest.member
+        SET
+        member_pwd
+        = #{memberPwd}
+        ,member_birth
+        = #{memberBirth}
+        ,member_image
+        = #{memberImage}
+        ,member_intro
+        = #{memberIntro}
+        WHERE
+        member_email
+        = #{memberEmail};
+    </update>
+
+    <!-- 비밀번호 변경 -->
+
+    <update id="updatePw">
+
+        update togetharttest.member
+        SET
+        member_pwd
+        = #{memberPwd}
+        where
+        member_email
+        = #{memberEmail};
+
+    </update>
+
+    <select id="readMember" resultType="com.team.togethart.dto.member.MemberUpdateRequest">
+        SELECT
+        *
+        FROM
+        togetharttest.member
+        WHERE
+        member_email
+        = #{memberEmail};
+
+    </select>
+
+    <select id="emailcheck" resultType="com.team.togethart.dto.member.MemberUpdateRequest">
+        SELECT
+        member_email
+        FROM
+        togetharttest.member
+        WHERE
+        member_email
+        = #{memberEmail};
+
+    </select>
+
+    <select id="getUserList" resultType="com.team.togethart.dto.member.MemberAddRequest">
+
+        SELECT
+        *
+        FROM
+        togetharttest.member;
+
+    </select>
+
+
+
+
+</mapper>
+

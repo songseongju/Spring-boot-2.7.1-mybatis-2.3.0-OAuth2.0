@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+  <title>TogethArt | 작품 업로드</title>
+</head>
+<body>
+  <form method="post">
+    <div class="input-container">
+      <legend>공유할 작품의 정보를 입력해주세요.</legend>
+
+      <div></div>
+      <div style="display: flex;">
+        <img id="preview" src="" alt="">
+      </div>
+      <!-- 파일 업로드 -->
+      <div class="form-group">
+        <label for="fileInput" class="form-label mt-4">공유할 작품 선택</label>
+        <input class="form-control" type="file" id="fileInput" accept="image/*">
+      </div>
+      <!-- 작품 제목 -->
+      <div class="form-group">
+        <label for="artworkTitle" class="form-label mt-4">작품 제목</label>
+        <input type="text" class="form-control" id="artworkTitle" placeholder="작품 제목">
+      </div>
+      <!-- 작품 설명 -->
+      <div class="form-group">
+        <label for="artworkDescription" class="form-label mt-4">작품 설명</label>
+        <textarea class="form-control" id="artworkDescription" rows="3"></textarea>
+      </div>
+      <!-- 공개 범위 -->
+      <legend class="mt-4">공개 범위 설정</legend>
+      <!-- 공개 범위 기본값 (모두에게) -->
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+        <label class="form-check-label" for="optionsRadios1">
+          모두에게 공유
+        </label>
+      </div>
+      <!-- 구독 자격을 얻은 회원에게만 활성화 -->
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+        <label class="form-check-label" for="optionsRadios2">
+          구독자에게만 공유
+        </label>
+      </div>
+      <!-- 구독 자격을 얻지 못한 회원에게는 비활성화 -->
+      <div class="form-check disabled">
+        <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">
+        <label class="form-check-label" for="optionsRadios3">
+          구독자에게만 공유
+        </label>
+      </div>
+
+      <!-- 카테고리 선택 -->
+      <label class="form-label mt-4">Categories ( Choose categories up to 5 )</label> <!-- 원래 <legend> 태그 였음. 문제 시 변경. -->
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="3D Art" id="category">
+        <label class="form-check-label" for="category">
+          3D Art
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Abstract" id="category">
+        <label class="form-check-label" for="category">
+          Abstract
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Animal" id="category">
+        <label class="form-check-label" for="category">
+          Animal
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Anime" id="category">
+        <label class="form-check-label" for="category">
+          Anime
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Architecture" id="category">
+        <label class="form-check-label" for="category">
+          Architecture
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Celebrity" id="category">
+        <label class="form-check-label" for="category">
+          Celebrity
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Character" id="category">
+        <label class="form-check-label" for="category">
+          Character
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Comics" id="category">
+        <label class="form-check-label" for="category">
+          Comics
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Fantasy" id="category">
+        <label class="form-check-label" for="category">
+          Fantasy
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Food" id="category">
+        <label class="form-check-label" for="category">
+          Food
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Games" id="category">
+        <label class="form-check-label" for="category">
+          Games
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Holiday" id="category">
+        <label class="form-check-label" for="category">
+          Holiday
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Men" id="category">
+        <label class="form-check-label" for="category">
+          Men
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Millitary" id="category">
+        <label class="form-check-label" for="category">
+          Millitary
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Movie" id="category">
+        <label class="form-check-label" for="category">
+          Movie
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Nature" id="category">
+        <label class="form-check-label" for="category">
+          Nature
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Photography" id="category">
+        <label class="form-check-label" for="category">
+          Photography
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Pop Art" id="category">
+        <label class="form-check-label" for="category">
+          Pop Art
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Sci-Fi" id="category">
+        <label class="form-check-label" for="category">
+          Sci-Fi
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Space" id="category">
+        <label class="form-check-label" for="category">
+          Space
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Sports" id="category">
+        <label class="form-check-label" for="category">
+          Sports
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Technology" id="category">
+        <label class="form-check-label" for="category">
+          Technology
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Travel" id="category">
+        <label class="form-check-label" for="category">
+          Travel
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Vehicle" id="category">
+        <label class="form-check-label" for="category">
+          Vehicle
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Women" id="category">
+        <label class="form-check-label" for="category">
+          Women
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-success" style="float: right; margin-top:28px;">작품 업로드</button>
+    </div>
+  </form>
+
+  <script src="../static/js/newArtwork.js"></script>
+
+</body>
+</html>

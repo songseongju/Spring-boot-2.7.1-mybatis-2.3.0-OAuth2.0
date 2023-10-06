@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+  <title>TogethArt | 작품 상세 보기</title>
+</head>
+<body>
+  
+  <!-- 헤더 -->
+  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">TogethArt</a>
+      
+      <!-- 반응형 네비 메뉴 -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbarColor02">
+
+        <!-- 네비 메뉴 목록 -->
+        <ul class="navbar-nav me-auto">
+          <!-- 홈 (액티브)-->
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Home
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <!-- 팔로우 한 작가 작품 모음 -->
+          <li class="nav-item">
+            <a class="nav-link" href="#">Follows</a>
+          </li>
+          <!-- 인기 작품 모음 -->
+          <li class="nav-item">
+            <a class="nav-link" href="#">Popular</a>
+          </li>
+          <!-- 카테고리별 작품 모음 -->
+          <li class="nav-item">
+            <a class="nav-link" href="#">Category</a>
+          </li>
+            <!-- 검색 -->
+          <form class="nav-item d-flex">
+            <input style="margin-left:1.5rem;" class="form-control me-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit" style="margin-right: 0.5rem;">Search</button>
+          </form>
+        </ul>
+
+      
+
+        <ul class="navbar-nav me-sm-2">
+          <!-- 회원가입 -->
+          <li class="nav-item">
+            <a class="nav-link" href="#">Join</a>
+          </li>
+          <!-- 로그인 -->
+          <li class="nav-item">
+            <a class="nav-link" href="#">Login</a>
+          </li>
+        </ul>
+        <a href="#"><button class="btn btn-success my-2 my-sm-0" style="margin-right: 0.5rem;">Upload</button></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 이미지, 댓글 포함 -->
+
+    <!-- 이미지 -->
+    <div class="image-center-super">
+        <img class="image-center" src="../static/imgs/image3.png"  alt="image">
+    </div>
+
+    <!-- 작품 정보 -->
+    <div class="artwork-data-super">
+      <div class="artwork-data">
+        <!-- 작품 타이틀 -->
+        <h2 style="margin-top: 1.5rem;">작품 제목</h2>
+        <!-- 멤버 프로필  -->
+        <div class="member-profile">
+          <!-- 멤버 프로필 이미지 -->
+          <div class="member-image-container">
+            <img class="member-image" src="../static/imgs/image1.png" alt="member-profile-image">
+          </div>
+          <!-- 멤버 닉네임 (유저네임) -->
+          <div class="member-username">
+            <a href="#"><h5 style="margin-bottom: .1rem;">회원 닉네임 (유저네임)</h5></a>
+          </div>
+          <!-- 팔로우 버튼 -->
+          <div class="follow-btn">
+            <button class="transparent-btn">
+              <a href="#">팔로우</a>
+            </button>
+          </div>
+        </div>
+        <!-- 좋아요, 조회수, 업로드 날짜 -->
+        <div >
+          <!-- 좋아요 -->
+          <button class="transparent-btn">
+            <a href="#">좋아요</a>
+            <span>(좋아요) 개수</span>
+            <span>좋아요</span>
+          </button>
+          <!-- 조회수 -->
+          <span>88,231 조회</span>
+          <!-- 업로드 날짜 -->
+          <span style="float: right;">2023.09.22</span>
+        </div>
+
+        <!-- 작품이 속한 카테고리 -->
+        <div class="artwork-category-container">
+          <span>카테고리 : </span>
+          <!-- 버튼 클릭 시 해당 카테고리 갤러리로 이동 -->
+          <button class="btn btn-success">
+            <span>카테고리 이름</span>
+          </button>
+        </div>
+
+        <!-- 작품 설명 -->
+        <div class="artwork-description">
+          <p>작품 설명 Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero adipisci labore quaerat consectetur aliquam iusto, ad quos, sint facilis, et numquam ullam quasi placeat. Praesentium nam veniam ducimus odit enim.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 댓글 -->
+    <div class="comment-container">
+      <!-- 댓글 작성란 -->
+      <form method="post" class="comment-form">
+        <div class="form-group comment-textarea">
+          <label for="commentContent" class="form-label">작품 설명</label>
+          <textarea class="form-control" id="commentContent" rows="3"></textarea>
+        </div>
+        <button class="btn btn-success" style="height: 3rem; margin-top: auto; margin-left: 1.5rem">댓글 작성</button>
+      </form>
+
+      <!-- 댓글 불러오기 -->
+      <!-- 댓글 리스트 컨테이너 -->
+      <div class="comment-list-container">
+      <!-- 댓글 하나의 컨테이너: 플렉스 -->
+        <div class="comment-unit">
+          <!-- 프로필 사진 -->
+          <div class="member-image-container">
+            <img class="member-image" src="../static/imgs/image1.png" alt="member-profile-image">
+          </div>
+          <!-- 작성자, 업로드•수정일자, 컨텐츠 컨테이너 -->
+          <div style="flex:1;">
+            <div>
+              <!-- 작성자 -->
+              <span><a href="#" style="margin-bottom: .1rem;">회원 닉네임 (유저네임)</a></span>
+              <!-- 업로드•수정일자 -->
+              <span style="margin-left:1.5rem;">2023.09.22</span>
+            </div>
+            <!-- 댓글 내용 -->
+            <div>
+              <span>Lorem ipsum dolor facilis veritatis aperiam unde saepe vitae debitis ratione itaque reiciendis ipsam id cumque pariatur non in nisi quibusdam consequuntur.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+	<title>TogethArt | 로그인</title>
+</head>
+<body>
+<div class="input-container">
+	<legend style="text-align: center;">로그인</legend>
+
+	<form method="post">
+		<!-- 이메일 주소 -->
+		<div class="form-group">
+			<label for="memberEmail" class="form-label mt-4">Email address</label>
+			<input type="email" class="form-control" id="memberEmail" aria-describedby="emailHelp" placeholder="Enter email">
+		</div>
+		<!-- 비밀번호 -->
+		<div class="form-group">
+			<label for="memberPwd" class="form-label mt-4">Password</label>
+			<input type="password" class="form-control" id="memberPwd" placeholder="Password" autocomplete="off">
+		</div>
+		<div style="margin-top:1rem; margin-bottom:1rem; text-align: right; display:block;">
+			<a href="#">이메일 찾기</a> / <a href="#">비밀번호 찾기</a>
+		</div>
+		<!-- 소셜 로그인 -->
+		<div>
+			<p><a class="btn btn-outline-success btn-sm" style="width:100%;" href="/oauth2/authorization/google">Google로 로그인</a></p>
+			<p><span th:if="${userId==null}"><a class="btn btn-outline-success btn-sm" style="width:100%;" href="https://kauth.kakao.com/oauth/authorize?client_id=adbbf5ce440e188cfcb07e0628098935&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code">카카오로 로그인</a></p>
+			</span>
+			<p><a class="btn btn-outline-success btn-sm" style="width:100%;" href="#">네이버로 로그인</a></p>
+		</div>
+		<div>
+			<button type="submit" class="btn btn-success" style="float: right; margin-top:1.8rem;">로그인</button>
+		</div>
+	</form>
+</div>
+
+</body>
+</html>
