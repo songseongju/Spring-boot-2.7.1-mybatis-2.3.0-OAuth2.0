@@ -24,7 +24,7 @@ public class JwtUtils {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
-    public String createAccessToken(int memberId, String memberEmail, String Username) {
+    public String createAccessToken(String Togethart, int memberId, String memberEmail, String Username) {
 
         System.out.println("createAccessToken");
 
@@ -34,8 +34,9 @@ public class JwtUtils {
 
         //accessToken 생성 - 나중에 바로 RETURN값에 넣어주기
         String accessToken = Jwts.builder()
-                .setSubject(memberEmail)
+                .setSubject(Togethart)
                 .claim("memberId", memberId)
+                .claim("memberEmail",memberEmail)
                 .claim("Username",Username)
                 .setIssuedAt(now) //토큰발행일자
                 .setExpiration(expiration)
@@ -70,21 +71,36 @@ public class JwtUtils {
     }
 
     public String getRole(String token) {
-        System.out.println("getRoles");
+        System.out.println("memberId");
 
-        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().get("roles").toString();
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("memberId").toString();
     }
 
     public String getId(String token) {
-        System.out.println("getId");
+        System.out.println("memberEmail");
 
-        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 
     public String getName(String token) {
-        System.out.println("getName");
+        System.out.println("Username");
 
-        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().get("name").toString();
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("Username").toString();
     }
 
     //request Header에서 access토큰 정보를 꺼내오기
@@ -93,16 +109,6 @@ public class JwtUtils {
         System.out.println("JwtUtils getAccessToken : " + bearerToken);
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
-        }
-        return null;
-    }
-    // role에 따라서 페이지 이동을 다르게 하는 메서드 - 비회원 , 회원
-    public String authByRole(HttpServletRequest httpServletRequest ,String commonURI){
-        String token = getAccessToken(httpServletRequest);
-        if (token == null){
-            return null;
-        }else if(getRole(token).equals("1")){
-            return commonURI;
         }
         return null;
     }
