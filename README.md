@@ -20,5 +20,5 @@ Spring boot 2.7.1 mybatis 2.3.0 mysql 8.0
 
 + 구글소셜로그인
 + 회원탈퇴
-+ 프론트 JS 바인딩
++ Front JS binding
 
