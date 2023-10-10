@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team.togethart.repository.search.SearchResultsMapper">
-    <select id="getSearchResults" resultType="java.lang.String">
-        SELECT resized_path
-        FROM artwork
-        WHERE artwork_title LIKE CONCAT('%', #{keyword}, '%')
+    <select id="getSearchResults" resultType="com.team.togethart.dto.search.SearchResultsResponse">
+        SELECT u.artwork_id, u.resource_pathname
+        FROM upload_file u
+        INNER JOIN artwork a ON u.artwork_id = a.artwork_id
+        WHERE a.artwork_title LIKE CONCAT('%', #{keyword}, '%');
     </select>
 </mapper>

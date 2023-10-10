@@ -1,0 +1,62 @@
+<div th:fragment="nav">
+  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/}">TogethArt</a>
+
+      <!-- 반응형 네비 메뉴 -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
+        aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbarColor02">
+
+        <!-- 네비 메뉴 목록 -->
+        <ul class="navbar-nav me-auto">
+
+          <!-- 팔로우 한 작가 작품 모음 -->
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/follow}">Follows</a>
+          </li>
+          <!-- 인기 작품 모음 -->
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/popular}">Popular</a>
+          </li>
+          <!-- 카테고리별 작품 모음 -->
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/category}">Category</a>
+          </li>
+          <!-- 검색 -->
+          <form class="nav-item d-flex">
+            <input style="margin-left:1.5rem;" class="form-control me-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit" style="margin-right: 0.5rem;">Search</button>
+          </form>
+        </ul>
+
+
+
+        <ul class="navbar-nav me-sm-2">
+          <!-- 회원가입 -->
+          <li id="signup-button" class="nav-item">
+            <a class="nav-link" th:href="@{/signup}">Join</a>
+          </li>
+          <!-- 로그인 -->
+          <li id="login-button" class="nav-item">
+            <a class="nav-link" th:href="@{/login}">Login</a>
+          </li>
+          <!-- 로그아웃-->
+          <li id="logout-button" class="nav-item">
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
+          </li>
+          <!-- 마이 페이지-->
+          <li class="nav-item">
+            <a id="myPage-button" class="nav-link">My Page</a>
+          </li>
+        </ul>
+        <a id="upload-button" th:href="@{/newArtwork}"><button class="btn btn-success my-2 my-sm-0"
+            style="margin-right: 0.5rem;">Upload</button></a>
+      </div>
+    </div>
+  </nav>
+</div>

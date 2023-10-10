@@ -1,6 +1,5 @@
 package com.team.togethart.dto.member;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

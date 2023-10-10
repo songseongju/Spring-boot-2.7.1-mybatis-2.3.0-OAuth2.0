@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.togethart.repository.artwork.ArtworkMapper">
+
+    <select id="selectArtwork" resultType="com.team.togethart.dto.artwork.ArtworkViewResponse">
+        SELECT a.artwork_id,
+               a.member_id, <!-- 작품 업로더 -->
+               a.member_username,
+               a.artwork_title,
+               a.artwork_description,
+               a.a_upload_date,
+               a.artwork_scope,
+               a.view_count,
+               a.like_count,
+               u.resource_pathname,
+               u.filename
+          FROM artwork a
+         INNER JOIN upload_file u
+               ON a.artwork_id = u.artwork_id
+         WHERE a.artwork_id = #{artworkId}
+    </select>
+
+    <update id="updateViewCount">
+        UPDATE artwork
+           SET view_count = view_count + 1
+         WHERE artwork_id = #{artworkId}
+    </update>
+
+</mapper>

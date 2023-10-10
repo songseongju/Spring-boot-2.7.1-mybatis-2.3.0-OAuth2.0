@@ -4,11 +4,22 @@ spring:
     username: togetharttest
     password: 2gethart
     schemas: ['togetharttest'] # 스키마 소문자.
+#  mvc:
+#    view:
+#      suffix: .html
 
 mybatis:
   mapper-locations: classpath:mappers/**/*.xml  # mapper/**/*.xml -> 폴더에 있을때
   configuration:
     map-underscore-to-camel-case: true
+
+#
+file:
+  upload:
+    location: /Users/makKim/develop/TeamProject/imgs # 로컬 경로, 각자 경로로 만들고. WebConfig 수정 필요.
+
+
+
 ---
 spring:
   security:
@@ -16,23 +27,24 @@ spring:
       client:
         registration:
           google:
-            client-id: 
-            client-secret: 
-            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            client-id:
+            client-secret:
+            redirect-uri:
             scope: profile,email
 ---
 spring:
   profiles:
     include: oauth
 
----
+
+--- # 메일 발송하는 기능. 발송하는 사람의 이메일 필요 togethart@gmail.com 계정 파서 입력. SMTP 북마크 자료 참고.
 spring:
   mail:
     protocol: smtp
     host: smtp.gmail.com
     port: 587
-    username: 
-    password: 
+    username:
+    password:
     default-encoding: utf-8
     properties:
       mail:
@@ -40,5 +52,6 @@ spring:
           starttls:
             enable: true
           auth: true
+
 
 

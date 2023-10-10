@@ -1,44 +1,31 @@
 package com.team.togethart.service;
 
-import com.team.togethart.dto.follow.FollowAddRequest;
 import com.team.togethart.dto.member.MemberAddRequest;
-import com.team.togethart.dto.member.MemberPwfindRequest;
+import com.team.togethart.dto.member.MemberPwUpdateRequest;
 import com.team.togethart.dto.member.MemberUpdateRequest;
 import com.team.togethart.repository.member.MemberMapper;
-import org.apache.catalina.User;
-import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.GsonBuilderUtils;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MemberService implements UserDetailsService {
 
     @Autowired
     private MemberMapper memberMapper;
-
     @Autowired
-    private JavaMailSender emailSender;
+    private MemberAddRequest memberAddRequest;
 
     // 회원가입 시 저장시간을 넣어줄 DateTime형
     SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:sss");
@@ -49,20 +36,77 @@ public class MemberService implements UserDetailsService {
     // 로그인
     public MemberAddRequest login(String email, String pwd) {
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        MemberAddRequest memberAddRequest = memberMapper.findById(email);
 
-        if (memberAddRequest != null
-                && memberAddRequest.getMemberPwd().equals(pwd)
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        MemberAddRequest GetInfo = memberMapper.findById(email);
+
+        String 불러온정보 = pwd;
+        String 가져왔음 = GetInfo.getMemberPwd();
+
+        boolean passMatch = passwordEncoder.matches(pwd,GetInfo.getMemberPwd());
+
+        System.out.println("가져왔음"+" "+ 가져왔음);
+        System.out.println("불러온정보"+" "+ 불러온정보);
+        System.out.println("결과값"+" "+ passMatch);
+
+        if (GetInfo != null
+                && passMatch //가져온정보.getMemberPwd().equals(pwd)
         )
         {
-            return memberAddRequest;
-
-
+            return GetInfo;
         } else {
             return null;
         }
     }
+// 질문 -------------------------------------------------------------------------------------
+
+    // 회원탈퇴 - 비밀번호체크
+
+    public MemberAddRequest checkpwd(String pwd){
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        MemberAddRequest GetInfo = memberMapper.findByPwd(pwd);
+
+        String 불러온정보 = pwd;
+        String 가져왔음 = GetInfo.getMemberPwd();
+
+        boolean passMatch = passwordEncoder.matches(pwd,GetInfo.getMemberPwd());
+
+        if (passMatch)
+        {
+            return GetInfo;
+        } else {
+            return null;
+        }
+    }
+
+    // 회원탈퇴
+    public void deleteMemberByEmail(String memberEmail){
+        memberMapper.deleteMemberByEmail(memberEmail);
+    }
+
+
+ //-----------------------------------------------------------------------------------------------//
+
+    //회원정보 수정 <비밀번호 변경>
+    public MemberAddRequest getMemberByEmail(String memberEmail){
+
+        return memberMapper.getMemberByEmail(memberEmail);
+
+    }
+
+    public void modifyPwd(MemberPwUpdateRequest memberPwUpdateRequest){
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        memberPwUpdateRequest.setNewPwd(passwordEncoder.encode(memberPwUpdateRequest.getNewPwd()));
+
+        memberMapper.modifyPwd(memberPwUpdateRequest);
+    }
+
+
+    //------------------------------------------------------------------------------------------//
 
     // 회원가입
     public boolean register(MemberAddRequest memberAddRequest) {
@@ -79,11 +123,11 @@ public class MemberService implements UserDetailsService {
 
     // kakao 회원가입
 
-    public boolean register2(MemberAddRequest memberAddRequest) {
+    public boolean kakaoregister(MemberAddRequest memberAddRequest) {
         // MemberAddRequest 객체 생성 및 정보 설정
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberAddRequest.setMemberPwd(passwordEncoder.encode(memberAddRequest.getMemberPwd()));
-        memberAddRequest.setMemberRegiType("S"); // N 일반   S 소셜
+        memberAddRequest.setMemberRegiType("K"); // N 일반   K 카카오
         memberAddRequest.setMemberRegiDate(localTime);
         memberAddRequest.setMemberAuth(0); // 구독권한 기본값 0
         // MemberAddRequest
@@ -107,22 +151,23 @@ public class MemberService implements UserDetailsService {
 
 
     // 이메일 찾기
-    @Autowired
-    public MemberService(MemberMapper memberMapper) {
-        this.memberMapper = memberMapper;
-
-    }
-
     public List<String> findUserIdsByNameAndEmail(String username) {
         List<String> userIds = new ArrayList<>();
+
+
         userIds.addAll(memberMapper.findUserIdsByNameAndEmail(username));
+
+
         return userIds;
     }
 
     // 비밀번호 찾기
     public List<String> findUserIdsByNameAndPwd(String pwd) {
         List<String> userPwds = new ArrayList<>();
+
+
         userPwds.addAll(memberMapper.findUserIdsByNameAndPwd(pwd));
+
         return userPwds;
     }
 
@@ -137,6 +182,7 @@ public class MemberService implements UserDetailsService {
         memberMapper.commonModify(memberUpdateRequest);
     }
 
+
     //연동확인
     public List<MemberAddRequest> getUserList() {
         return memberMapper.getUserList();
@@ -147,9 +193,38 @@ public class MemberService implements UserDetailsService {
         return null;
     }
 
+    // 임시 비밀번호 파트 (메일과 유저네임 찾기)
+    public boolean userEmailCheck(String memberEamil, String memberUsername) {
+
+         MemberAddRequest memberAddRequest = memberMapper.getMemberByEmail(memberEamil);
+        if(memberAddRequest!=null && memberAddRequest.getMemberUsername().equals(memberUsername)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //임시 비밀번호 구현중
-
+/*
     public MemberPwfindRequest findMemberByEmail(String email , String username) {
         MemberAddRequest memberAddRequest = memberMapper.findByEmail(email,username);
         if (memberAddRequest != null) {
@@ -157,16 +232,24 @@ public class MemberService implements UserDetailsService {
         }
         return null;
     }
+*/
 
+
+/*
     public void updatePassword(String email, String password) {
         MemberAddRequest memberAddRequest = memberMapper.findById(email);
         if (memberAddRequest != null) {
             memberMapper.updatePassword(email, password);
             return;
         }
+
+
     }
 
-    public String generateTempPassword() {
+
+*/
+
+  /*  public String generateTempPassword() {
         int length = 12; // 임시 비밀번호 길이
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // 사용 가능한 문자열
         StringBuilder tempPassword = new StringBuilder();
@@ -175,8 +258,8 @@ public class MemberService implements UserDetailsService {
             tempPassword.append(characters.charAt(random.nextInt(characters.length())));
         }
         return tempPassword.toString();
-    }
-
+    } */
+/*
     public void sendTempPasswordByEmail(String email, String tempPassword) {
         String from = "songtjdwn@gmail.com"; // 발신자 이메일 주소
         String pwd = "dghzxxgpraglgcav"; // 발신자 이메일 비밀번호
@@ -215,14 +298,6 @@ public class MemberService implements UserDetailsService {
             e.printStackTrace();
         }
     }
-
-
-    //회원탈퇴
-    @Transactional
-    public void deleteUser (String userEmail){
-        MemberMapper.deleteByUserId(userEmail);
-    }
-
-
+*/
 
 }

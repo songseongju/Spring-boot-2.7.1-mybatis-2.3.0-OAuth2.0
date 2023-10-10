@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
   <title>TogethArt | 회원가입</title>
 </head>
+
 <body>
 
   <div class="input-container">
@@ -15,28 +17,37 @@
         <legend style="text-align: center;">회원가입</legend>
         <!-- 이메일 주소 -->
         <div class="form-group">
-          <label for="memberEmail" class="form-label mt-4">Email address</label>
-          <input type="email" class="form-control" name ="memberEmail" id="memberEmail" aria-describedby="emailHelp" placeholder="Enter email">
+          <label for="memberEmail" class="form-label mt-4">Email</label>
+          <input type="email" class="form-control" name="memberEmail" id="memberEmail" aria-describedby="emailHelp"
+            placeholder="사용가능한 이메일을 입력해주세요.">
         </div>
         <!-- 비밀번호 -->
         <div class="form-group">
-          <label for="memberPwd" class="form-label mt-4">Password</label>
-          <input type="password" class="form-control" name="memberPwd" id="memberPwd" placeholder="Password" autocomplete="off">
+          <label for="memberPwd" class="form-label mt-4">비밀번호</label>
+          <input type="password" class="form-control" name="memberPwd" id="memberPwd" placeholder="비밀번호"
+            autocomplete="off">
+        </div>
+        <!-- 비밀번호 확인-->
+        <div class="form-group">
+          <label for="check-memberPwd" class="form-label mt-4">비밀번호 확인</label>
+          <input type="password" class="form-control" name="check-memberPwd" id="check-memberPwd"
+            placeholder="비밀번호 확인을 위해 재입력해주세요." autocomplete="off">
         </div>
         <!-- 유저네임 -->
         <div class="form-group">
-          <label for="memberUsername" class="form-label mt-4">Username</label>
-          <input type="text" class="form-control" name="memberUsername" id="memberUsername" placeholder="Username" autocomplete="off">
+          <label for="memberUsername" class="form-label mt-4">닉네임</label>
+          <input type="text" class="form-control" name="memberUsername" id="memberUsername" placeholder="닉네임을 입력해주세요."
+            autocomplete="off">
         </div>
         <!-- 생일 -->
         <div class="form-group">
-          <label for="memberBirth" class="form-label mt-4">Birth</label>
+          <label for="memberBirth" class="form-label mt-4">생일</label>
           <input type="date" class="form-control" name="memberBirth" id="memberBirth" autocomplete="off">
         </div>
         <!-- </fieldset> -->
         <!-- 관심 카테고리 -->
         <!-- <fieldset class="form-group"> -->
-          <!-- <label class="form-label mt-4">Categories ( 5 개 까지 선택 가능합니다. )</label> 
+        <!-- <label class="form-label mt-4">Categories ( 5 개 까지 선택 가능합니다. )</label> 
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="3D Art" id="category">
             <label class="form-check-label" for="category">
@@ -194,4 +205,5 @@
   </div>
   <script th:src="@{js/member/signup.js}"></script>
 </body>
+
 </html>

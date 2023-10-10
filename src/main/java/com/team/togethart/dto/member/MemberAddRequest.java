@@ -1,7 +1,11 @@
 package com.team.togethart.dto.member;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -22,6 +26,13 @@ public class MemberAddRequest {
     private  String memberRegiType;
     private String memberRegiDate;
     private  int memberAuth;
+
+    private String povider;
+    private String providerId;
+
+
+
+
 
 
 

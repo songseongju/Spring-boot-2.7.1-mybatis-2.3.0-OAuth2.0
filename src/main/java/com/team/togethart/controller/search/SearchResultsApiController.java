@@ -1,7 +1,7 @@
 package com.team.togethart.controller.search;
 
 
-import com.team.togethart.dto.search.SearchResultsRequest;
+import com.team.togethart.dto.search.SearchResultsResponse;
 import com.team.togethart.service.SearchResultsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +21,8 @@ public class SearchResultsApiController {
     private SearchResultsService searchResultsService;
 
     @GetMapping("/{keyword}")
-    public ResponseEntity<List<SearchResultsRequest>> searchResults(@PathVariable String keyword) {
-        List<SearchResultsRequest> searchResults = searchResultsService.getSearchResults(keyword);
+    public ResponseEntity<List<SearchResultsResponse>> searchResults(@PathVariable String keyword) {
+        List<SearchResultsResponse> searchResults = searchResultsService.getSearchResults(keyword);
         return new ResponseEntity<>(searchResults, HttpStatus.OK);
     }
 

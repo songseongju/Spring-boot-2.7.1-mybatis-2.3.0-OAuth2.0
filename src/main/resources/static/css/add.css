@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css?family=Teko:300,400');
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+
+
+.main-section{width: calc(100% - 356px);height:783px;background-color: #777;position: relative;float: left;}
+.side-section{float: right;}
+
+
+.main-section,.info-section,.comment-section{padding:5px;display:block;}
+.join-btn,.login-btn,.burger-btn,.tomain-btn,.upload,.follow-btn,.my-profile-img,.submit-btn,.profile-img,.reply-btn,.burger-btn{display:inline;}
+.wrap-body{height:auto;background-color: #222;}
+
+
+/*1번섹션*/
+.share-artworks{padding-left: auto;}
+
+
+/*2번섹션*/
+.side-section{width:356px;height:2200px;display:block;overflow: hidden;}
+.subscribe,.same-artist,.similar-artworks,.similar-artist,.recommended-category{width:308px;height:348px;background-color: #222;margin:24px;overflow: hidden;}
+.grid-row{width:308px;height:108px;}
+.row-3{width:308px;height:108px;padding-top:16px;contain-intrinsic-size:308px 92px;content-visibility: auto;display:flex;flex-wrap:nowrap;border:0;vertical-align: baseline;}
+.b{width:92px;height:92px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.row-3{display: flex;}
+.g1-1{width:308px;height:24px;display: flex;justify-content: space-between;align-items: center;vertical-align: baseline;}
+.g1-2{width:308px;height:340px;padding:0px;overflow: hidden;}
+.follow-btn{position: relative;margin-left:auto;}
+
+
+/*3번섹션*/
+.wrap-artist{width:780px;height:1012px;}
+.info-section{width:780px;height:1012px;}
+.categories{width:780px;height:88px;background-color: #333;margin-top:24px;}
+.description{width:780px;height:88px;background-color: #333;margin-top:16px;margin-bottom:24px;}
+.like-cnt,.comment-cnt,.view-cnt{margin-left: 10px;}
+.wrap-artist{width:780px;height:50px;margin-top:16px;margin-bottom:32px;background-color: #999;}
+.artist{  width: 100%;height:500px;display: grid;grid-template-columns: min-content 1fr max-content;background-color: #999;display: flex;}
+
+
+/*4번섹션*/
+.comment-section{width:780px;height:385px;margin-top: 56px;}
+.g4-1{width:780px;height:24px;display: flex;}
+.arr-drop{position: relative;margin-left: auto;}
+.g4-2{width:780px;height:3000px;}
+.wrap-mycomment{width:780px;height: 116px;margin-top: 16px;margin-bottom: 44px;background-color: #222;}
+.my-comment{width:780px;height:90px;vertical-align: baseline;display:flex;}
+.my-profile-img{width:32px;height:32px;background-color: #777;padding:0px;}
+.comment{width:740px;height:114px;background-color: #222;margin-left:auto;}
+.comm-editor{width:740px;height:72px;background-color: #333;}
+.button-area{width:740px;height:42px;display: flex;background-color: #000;}
+.mypage-btn,.submit-btn{position: relative;margin-left: auto;}
+.wrap-comment{width:780px;height: 2800px;}
+.other-comment{width:780px;height: 91px;margin-bottom: 16px;background-color: #222;display: grid;grid-template-columns: auto minmax(0,1fr);gap: 8px;}
+.profile-img{width:32px;height: 91px;background-color: #777;}
+.comment-area{width:740px;height: 91px;background-color: #777;display: grid;grid-auto-flow: row;grid-template-columns: minmax(0,1fr);gap: 4px;}
+.com{width:740px;height:69px;}
+
+
+.burger-btn{width:32px;height:32px;margin-right: 20px;margin-left: 20px;}
+
+
+
+
+
+
+
+
+.wrap-posts,.wrap-gallery,.wrap-ect,.member-nav{width:auto;display:block;background-color: #333;}
+
+#memberartworks-padding{
+    padding-right: 100px;
+    padding-left: 100px;}
+
+
+    
+   .member-profile{width: 800px;
+    height: 140px;
+    background-color: #222;
+    display: grid;
+    grid-template-columns: auto minmax(0,1fr);
+    gap: 8px;
+    margin-left:79px;}
+
+
+.member-banner{width:1780px;height:336px;display:flex}
+.member-profile{margin-top: 180px;}
+.profile-image{width:100px;height:100px;margin-top: 9px;}
+.user-about{margin-left: 8px;}
+.cnt-follower,.cnt-post,.cnt-totalview{width:300px;display:inline;}
+.member-cnt{padding-left:8px;}
+
+
+.latest-gallery{width:1780px;height:354px;margin-bottom:20px;}
+
+
+.main{width:1780px;padding-left:76px;padding-right: 76px;margin-top: 13px;}
+.divide-mypage{display: flex;}
+
+
+.left-div{width:1155px;height:1050px;}
+.right-div{width:625px;height:1050px;}
+
+.wrap-featured-art{margin-top: 10px;margin-bottom: 40px;}
+.grid-row2{width:1780px;height:324px;margin-bottom: 13px;}
+.grid-row3{width:1109px;height:324px;margin-bottom: 13px;}
+.row-3-2{width:1780px;height:300px;padding-top:8px;margin-bottom:8px;contain-intrinsic-size:616px 92px;content-visibility: auto;display:flex;border:0;vertical-align: baseline;}
+.row-4{width:1780px;height:324px;padding-top:16px;contain-intrinsic-size:616px 92px;content-visibility: auto;display:flex;border:0;vertical-align: baseline;}
+.featured-gallery{width:600px;height:385px;}
+
+
+.wrap-member-info{width:625px;height:500px;}
+.member-info{width:586px;height:300px;border-radius: 5px;background-color: #111;padding:20px;margin-left:auto;}
+.info-title{margin-right:5px;color:#99a;}
+.birthday,.join-since,.info-title{display:inline;}
+.birthday{margin-left:46px;}
+.join-since{margin-left:30px;}
+.birthday,.join-since{margin-right:auto;}
+.intro{margin-top: 10px;}
+.info-div{margin-bottom: 5px;}
+.about-member{margin-bottom:8px ;margin-left:39px ;}
+.like-gallery{width:1109px;}
+.user-name{width:500px;}
+
+
+.subscribe-tier{width:524px;height:274px;}
+.wrap-subscribe2{margin:auto;}
+.subscribe-image{width:380px;height:196px;}
+.subscribe-imagediv{width:380px;height:196px;margin:auto;}
+
+.wrap-subscribe,.gallery-list{width:1780px;}
+.gallery-div{width:250px;height:212px;margin-right:10px;border-width:1px;border-style:solid;border-radius:5px;border-color: #555;background-color: #222;display:block;padding:16px;}
+.gallery-txt{margin-top:20px;margin-bottom: 10px;}
+.gallery-img{width:216px;height:124px;}
+.gallery-list{display:flex;}
+.gallery-container2 {
+    width:1751px;
+    column-count: 4;
+    column-gap: 5px;
+  }
+  .art-cnt{color:#777;}
+  .gallery-title{width:170px;}

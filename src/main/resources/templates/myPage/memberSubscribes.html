@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/park_bootstrap.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/add.css}">
+	<title>TogethArt</title>
+</head>
+
+<body>
+	<div class="wrap-body">
+		<!--부모 div-->
+		<div id="nav-wrapper" th:replace="~{/nav :: nav}"></div>
+
+		<!--상단, 배너 영역-->
+		<div class="member-banner">
+			<div class="member-profile">
+				<div class="profile-image-div">
+					<img class="profile-image" src="./images/img-sample.png" />
+				</div>
+				<div class="profile-info-div">
+					<div class="user-name">
+						<h1 style="display:inline;">닉네임</h1>
+						<button class="btn btn-secondary my-2 my-sm-0" type="submit"
+							style="height:38px;float:right;margin-bottom:5px;">팔로우</button>
+					</div>
+					<div class="user-about">
+						자기소개
+					</div>
+					<div class="profile-list">
+						<ul class="member-cnt">
+							<li class="cnt-follower">팔로워 수</li>
+							<li class="cnt-post">게시물 수</li>
+							<li class="cnt-totalview">게시물 뷰 총합</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--메뉴바-->
+		<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+			<div class="container-fluid">
+				<!-- 반응형 네비 메뉴 -->
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
+					aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarColor02">
+					<!-- 네비 메뉴 목록 -->
+					<ul class="navbar-nav me-auto">
+						<!-- 홈 (액티브)-->
+						<li class="nav-item"><a class="nav-link active" href="./myPage.html" style="margin-left:58px">Home <span
+									class="visually-hidden">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/member/1/artworks}">Gallery</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/member/1/likes}">Favorites</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/member/1/subscribes}">Subscribed</a>
+						</li>
+					</ul>
+					<!-- 서브내비-우측 -->
+					<ul class="navbar-nav me-sm-2 subs-info">
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/member/1/subs-info}">구독 관리</a>
+						</li>
+						<li class="nav-item">
+							<button class="btn btn-secondary my-sm-0" type="submit" style="margin-right: 0.5rem;">구독하기</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="main">
+			<h2 class="gallery-txt">Subscribed</h2>
+
+			<div class="gallery-list">
+				<div class="gallery-div">
+					<img class="gallery-img" src="./static/imgs/image1.png">
+					<h2>작가 1</h2>
+					<span class="art-cnt">3 작품</span>
+				</div>
+				<div class="gallery-list">
+					<div class="gallery-div">
+						<img class="gallery-img" src="./static/imgs/image1.png">
+						<h2>작가 2</h2>
+						<span class="art-cnt">3 작품</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- 메인 갤러리 -->
+			<h2 class="gallery-txt">Artworks</h2>
+			<div class="gallery-container2">
+				<div class="gallery-item">
+					<img src="./static/imgs/image1.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image2.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image4.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image7.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image8.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image9.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image1.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image2.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image4.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image7.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image8.png" alt="">
+				</div>
+				<div class="gallery-item">
+					<img src="./static/imgs/image9.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="/js/nav.js"></script>
+</body>
+
+</html>

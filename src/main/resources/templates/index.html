@@ -1,125 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/kim_bootstrap.css">
   <title>TogethArt</title>
-  
 </head>
+
 <body>
+  <!-- 내비게이션 -->
+  <div id="nav-wrapper" th:replace="~{/nav :: nav}"></div>
 
-  <!-- 헤더 -->
-  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">TogethArt</a>
-      
-      <!-- 반응형 네비 메뉴 -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-
-      <div class="collapse navbar-collapse" id="navbarColor02">
-
-        <!-- 네비 메뉴 목록 -->
-        <ul class="navbar-nav me-auto">
-          <!-- 홈 (액티브)-->
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Home
-              <span class="visually-hidden">(current)</span>
-            </a>
-          </li>
-          <!-- 팔로우 한 작가 작품 모음 -->
-          <li class="nav-item">
-            <a class="nav-link" href="#">Follows</a>
-          </li>
-          <!-- 인기 작품 모음 -->
-          <li class="nav-item">
-            <a class="nav-link" href="#">Popular</a>
-          </li>
-          <!-- 카테고리별 작품 모음 -->
-          <li class="nav-item">
-            <a class="nav-link" href="#">Category</a>
-          </li>
-            <!-- 검색 -->
-          <form class="nav-item d-flex">
-            <input style="margin-left:1.5rem;" class="form-control me-sm-2" type="search" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit" style="margin-right: 0.5rem;">Search</button>
-          </form>
-        </ul>
-
-       
-
-        <ul class="navbar-nav me-sm-2">
-          <!-- 회원가입 -->
-          <li class="nav-item">
-            <a class="nav-link" href="#">Join</a>
-          </li>
-          <!-- 로그인 -->
-          <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
-          </li>
-        </ul>
-        <a href="#"><button class="btn btn-success my-2 my-sm-0" style="margin-right: 0.5rem;">Upload</button></a>
-      </div>
-    </div>
-    <div class="col-md-12">
-      <!-- 로그인 기능 영역 -->
-      <div class="row">
-        <div class="col-md-6">
-          <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
-          {{#userName}}
-          Logged in as: <span id="user">{{userName}}</span>
-          <a href="http://localhost:8080/oauth/logout" class="btn btn-info active" role="button">Logout</a>
-          {{/userName}}
-          {{^userName}}
-          {{/userName}}
-        </div>
-      </div>
-  </nav>
-  
   <!-- 메인 갤러리 -->
-  <div class="gallery-container">
-    <div class="gallery-item">
-      <img src="../static/imgs/image1.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image2.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image4.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image7.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image8.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image9.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image1.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image2.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image4.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image7.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image8.png" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="../static/imgs/image9.png" alt="">
-    </div>
-  </div>
+  <div id="gallery-container" class="gallery-container"></div>
 
+  <script src="/js/gallery/index.js"></script>
+  <script src="/js/nav.js"></script>
 
-  
 </body>
+
 </html>

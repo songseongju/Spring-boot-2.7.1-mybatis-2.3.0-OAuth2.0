@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+  <title>TogethArt | 작품 상세 보기</title>
+</head>
+
+<body>
+
+  <div id="nav-wrapper" th:replace="~{/nav :: nav}"></div>
+
+  <input type="hidden" id="uploader" th:value="${artwork.memberId}">
+  <input type="hidden" id="artworkId" th:value="${artwork.artworkId}">
+  <!-- 이미지, 댓글 포함 -->
+
+  <!-- 이미지 -->
+  <div class="image-center-super">
+    <a class="image-center" th:href="@{${artwork.resourcePathname}}">
+      <img id="artwork-image" class="image-height" th:src="@{${artwork.resourcePathname}}" alt="image">
+    </a>
+  </div>
+
+  <!-- 작품 정보 -->
+  <div class="artwork-data-super">
+    <div class="artwork-data">
+
+      <!-- 작품 타이틀 -->
+      <h2 id="artwork-title" style="margin-top: 1.5rem;" th:text="${artwork.artworkTitle}"></h2>
+
+      <!-- 멤버 프로필  -->
+      <div class="member-profile">
+        <!-- 멤버 프로필 이미지 -->
+
+        <div class="member-image-container">
+          <a id="member-profile" th:href="@{/member/} + ${artwork.memberId}">
+            <img id="member-image" class="member-image" src="/imgs/image2.png" alt="member-profile-image">
+          </a>
+        </div>
+        <!-- 멤버 닉네임 (유저네임) -->
+        <div class="member-username">
+          <a id="member-profile" th:href="@{/member/} + ${artwork.memberId}">
+            <h5 style="margin-bottom: .1rem;" th:text="${artwork.memberUsername}">회원 닉네임 (유저네임)</h5>
+          </a>
+
+        </div>
+        <!-- 팔로우 버튼 -->
+        <div class="follow-btn">
+          <button id="follow-button" class="transparent-btn">
+            <a href="#">팔로우</a>
+          </button>
+        </div>
+        <div class="follow-btn">
+          <button id="subscription-button" class="transparent-btn">
+            <a href="#">구독하기</a>
+          </button>
+        </div>
+      </div>
+
+      <!-- 좋아요, 조회수, 업로드 날짜 -->
+      <div>
+        <!-- 좋아요 -->
+        <input id="like-button" type="button"></input>
+        <span id="likeCount">16</span>
+        <!-- 조회수 -->
+        <span id="viewCount" style="margin-left:.5rem;" th:text="${artwork.viewCount} + ' 조회'"></span>
+        <!-- 업로드 날짜 -->
+        <span style="float: right;" th:text="${#dates.format(artwork.aUploadDate, 'yyyy-MM-dd')}"></span>
+      </div>
+
+      <!-- 작품이 속한 카테고리 -->
+      <div class="artwork-category-container">
+        <span>카테고리 :
+          <!-- 버튼 클릭 시 해당 카테고리 갤러리로 이동 -->
+          <input type="button" class="btn btn-success" value="categoryName"></input>
+        </span>
+      </div>
+
+      <!-- 작품 설명 -->
+      <div class="artwork-description" th:text="${artwork.artworkDescription}">
+        <p>작품 설명 Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero adipisci labore quaerat consectetur
+          aliquam iusto, ad quos, sint facilis, et numquam ullam quasi placeat. Praesentium nam veniam ducimus odit
+          enim.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 댓글 -->
+  <div class="comment-container">
+    <!-- 댓글 작성란 -->
+    <form method="post" class="comment-form">
+      <div class="form-group comment-textarea">
+        <label for="commentContent" class="form-label">댓글</label>
+        <textarea class="form-control" id="commentContent" name="commentContent" rows="3"></textarea>
+      </div>
+      <button class="btn btn-success" style="height: 3rem; margin-top: auto; margin-left: 1.5rem">댓글 작성</button>
+    </form>
+
+    <!-- 댓글 불러오기 -->
+    <!-- 댓글 리스트 컨테이너 -->
+    <div class="comment-list-container">
+      <!-- 댓글 하나의 컨테이너: 플렉스 -->
+      <div class="comment-unit">
+        <!-- 프로필 사진 -->
+        <div class="member-image-container">
+          <img class="member-image" src="/imgs/image2.png" alt="member-profile-image">
+        </div>
+        <!-- 작성자, 업로드•수정일자, 컨텐츠 컨테이너 -->
+        <div style="flex:1;">
+          <div>
+            <!-- 작성자 -->
+            <span><a href="#" style="margin-bottom: .1rem;">회원 닉네임 (유저네임)</a></span>
+            <!-- 업로드•수정일자 -->
+            <span style="margin-left:1.5rem;">2023.09.22</span>
+          </div>
+          <!-- 댓글 내용 -->
+          <div>
+            <span>Lorem ipsum dolor facilis veritatis aperiam unde saepe vitae debitis ratione itaque reiciendis ipsam
+              id cumque pariatur non in nisi quibusdam consequuntur.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" th:src="@{/js/like/like.js}"></script>
+  <script type="text/javascript" th:src="@{/js/artworkView.js}"></script>
+  <script type="text/javascript" th:src="@{/js/nav.js}"></script>
+  <script type="text/javascript" th:src="@{/js/follow/follow.js}"></script>
+  <script type="text/javascript" th:src="@{/js/subscription/sub.js}"></script>
+</body>
+
+</html>

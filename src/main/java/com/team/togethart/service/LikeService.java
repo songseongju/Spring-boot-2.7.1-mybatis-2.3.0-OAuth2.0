@@ -6,9 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
 @RequiredArgsConstructor
 public class LikeService {
@@ -19,10 +16,12 @@ public class LikeService {
     @Autowired
     private LikeRequest likeRequest;
 
-    public boolean findLike(LikeRequest likeRequest) {
+    public int findLike(LikeRequest likeRequest) {
         // DB 셀렉트 결과 0 이면 참 ==> 좋아요 기능 작동 가능.
         // 셀렉트 결과 0 이 아니면 거짓 ==> 좋아요 기능 작동 불가. 좋아요 취소 작동 가능.
-        return likeMapper.selectLike(likeRequest) == 0;
+        return likeMapper.selectLike(likeRequest) == 0
+                ? 0
+                : 1;
     }
 
     // 컨트롤러에게,
@@ -31,7 +30,7 @@ public class LikeService {
     public int addLike(LikeRequest likeRequest) {
 
         // 셀렉트 결과 0 이면 좋아요 작동.
-        if (findLike(likeRequest)) {
+        if (findLike(likeRequest) == 0) {
             likeMapper.insertLike(likeRequest);
             likeMapper.updateLikeCountPlus(likeRequest.getArtworkId());
             return 1;
@@ -45,8 +44,8 @@ public class LikeService {
 
         LikeRequest request = new LikeRequest(artworkId, memberId);
 
-        // 셀렉트 결과 0 이 아니면 좋아요 취소 작동.
-        if (!findLike(request)) {
+        // 셀렉트 결과 1 이면 좋아요 취소 작동.
+        if (findLike(request) == 1) {
             likeRequest.setArtworkId(artworkId);
             likeRequest.setMemberId(memberId);
 
@@ -58,12 +57,12 @@ public class LikeService {
 
     }
 
-    public Map<String, Integer> countLike(Long artworkId) {
+    public int countLike(Long artworkId) {
 
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("likeCount", likeMapper.selectCount(artworkId));
+//        Map<String, Integer> map = new HashMap<String, Integer>();
+//        map.put("likeCount", likeMapper.selectCount(artworkId));
 
-        return map;
+        return likeMapper.selectCount(artworkId);
 
     }
 

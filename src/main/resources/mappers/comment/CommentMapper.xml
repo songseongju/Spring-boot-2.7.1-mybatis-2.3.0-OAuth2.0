@@ -26,13 +26,26 @@
     </insert>
 
     <select id="selectCommentList" resultType="com.team.togethart.dto.comment.CommentViewResponse">
-        SELECT c.memberUsername, c.cUploadDate, c.commentContent, m.member_image
+        SELECT c.member_username, c.c_upload_date, c.comment_content, m.member_image
           FROM comment c
          INNER JOIN member m
                ON c.member_id = m.member_id
-         WHERE c.artwork_id = #{param1}
-         ORDER BY c.cUploadDate
+         WHERE c.artwork_id = #{artworkId}
+         ORDER BY c.c_upload_date ASC
     </select>
+
+    <update id="updateComment" parameterType="com.team.togethart.dto.comment.CommentUpdateRequest">
+        UPDATE comment
+           SET comment_content = #{commentContent},
+               c_update_date = NOW()
+         WHERE comment_id = #{commentId}
+    </update>
+
+    <delete id="deleteComment">
+        DELETE
+          FROM comment
+         WHERE comment_id = #{commentId}
+    </delete>
 
 
 </mapper>

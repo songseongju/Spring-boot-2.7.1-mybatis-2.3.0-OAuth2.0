@@ -90,12 +90,12 @@
 
     <!-- (회원 수정) 이메일 가져오기 -->
 
-    <select id="getCommonInfoById" resultType="com.team.togethart.dto.member.MemberUpdateRequest">
+    <select id="getCommonInfoById" resultType="com.team.togethart.dto.member.MemberAddRequest">
 
         SELECT
         *
         FROM
-        member
+        togetharttest.member
         WHERE
         member_email
         = #{memberEmail};
@@ -104,7 +104,7 @@
 
 
     <!-- 회원찾기 -->
-    <select id="findByName" resultType="String">
+    <select id="findByName" resultType="com.team.togethart.dto.member.MemberAddRequest">
         select
         *
         FROM
@@ -113,9 +113,6 @@
         member_username
         = #{memberUsername};
     </select>
-
-
-
 
     <!-- 회원 탈퇴 -->
 
@@ -128,7 +125,6 @@
         = #{memberEmail};
 
     </delete>
-
 
 
 <!--
@@ -177,9 +173,7 @@
         UPDATE
         togetharttest.member
         SET
-        member_pwd
-        = #{memberPwd}
-        ,member_birth
+        member_birth
         = #{memberBirth}
         ,member_intro
         = #{memberIntro}
@@ -251,6 +245,78 @@
     </select>
 
 
+    <!-- 백업용 회원탈퇴 -->
+
+    <select id="getUserdelete" parameterType="String"  resultType="com.team.togethart.dto.member.MemberAddRequest">
+        SELECT   user_seq as userSeq
+        , id
+        , password
+        , name
+        , user_del as userDel
+        FROM user
+        WHERE  id = #{id}
+        AND    user_del != 1
+    </select>
+
+    <update id="updateUserDelFlag" parameterType="Long">
+        UPDATE
+        user
+        SET
+        user_del = 1
+        WHERE
+        user_seq = #{userSeq}
+    </update>
+
+
+    <!-- 비밀번호 변경-->
+
+    <select id="getMemberByEmail" resultType="com.team.togethart.dto.member.MemberAddRequest">
+        SELECT
+        *
+        from
+        togetharttest.member
+        WHERE
+        member_email
+        = #{memberEmail};
+    </select>
+
+    <update id="modifyPwd" parameterType="com.team.togethart.dto.member.MemberPwUpdateRequest">
+        UPDATE
+        togetharttest.member
+        SET
+        member_pwd
+        = #{newPwd}
+        WHERE
+        member_email
+        = #{memberEmail};
+    </update>
+
+
+    <!-- 회원탈퇴 -->
+
+    <delete id="deleteMemberByEmail">
+        delete
+        from
+        togetharttest.member
+        where
+        member_email
+        = #{memberEmail};
+
+    </delete>
+
+
+    <update id="updateUserPassword" parameterType="com.team.togethart.dto.member.MemberAddRequest">
+
+        UPDATE
+        togetharttest.member
+        SET
+        member_pwd
+        = #{memberPwd}
+        WHERE
+        member_email
+        = #{memberEmail};
+
+    </update>
 
 
 </mapper>

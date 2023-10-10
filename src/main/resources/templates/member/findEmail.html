@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+  <title>TogethArt | 이메일 찾기</title>
+</head>
+<body>
+  <div class="input-container">
+    <legend style="text-align: center;">이메일 찾기</legend>
+
+    <form id="form" method="POST">
+      <!-- username -->
+      <div class="form-group">
+        <label for="memberUsername" class="form-label mt-4">Username</label>
+        <input type="text" class="form-control" name="memberUsername" id="memberUsername" placeholder="UserName">
+      </div>
+
+      </br>
+    </br>
+
+      <div>
+        <button type="submit" class="btn btn-outline-success btn-sm" style="width:100%;">이메일 찾기</button>
+        <p><a style="width:100%;" href="/login">Cancel</a></p>
+      </div>
+    </form>
+  </div>
+  <script th:src="@{//js/member/findEmail.js}"></script>
+</body>
+
+</html>

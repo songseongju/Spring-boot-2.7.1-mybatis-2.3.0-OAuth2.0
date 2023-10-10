@@ -5,43 +5,51 @@
 <mapper namespace="com.team.togethart.repository.follow.FollowMapper">
 
     <!-- 팔로우 -->
-    <insert id="insertFollow" parameterType="com.team.togethart.dto.follow.FollowAddRequest">
+    <insert id="insertFollow" parameterType="com.team.togethart.dto.follow.FollowRequest">
         INSERT
         INTO follow
         (follow_from
         , follow_to)
         VALUES
-        (#{follow_from}
-        , #{follow_to})
+        (#{followFrom}
+        , #{followTo})
     </insert>
 
     <!-- 언팔로우(= 팔로우 삭제) -->
-    <delete id="deleteFollow" parameterType="com.team.togethart.dto.follow.FollowAddRequest">
+    <delete id="deleteFollow" parameterType="com.team.togethart.dto.follow.FollowRequest">
         DELETE
         FROM follow
         WHERE follow_from
-        = #{follow_from}
+        = #{followFrom}
         AND follow_to
-        = #{follow_to}
+        = #{followTo}
     </delete>
 
+    <!-- 팔로우 상태 가져오기-->
     <select id="getFollow" resultType="long">
-        SELECT COUNT(*) FROM follow
-        WHERE follow_to = #{follow_to} AND follow_from = #{follow_from}
+        SELECT
+        COUNT(*)
+        FROM follow
+        WHERE
+        follow_to =
+        #{followTo}
+        AND
+        follow_from =
+        #{followFrom}
     </select>
 
-    <!--    &lt;!&ndash; 팔로우한 사람의 그림 가져오기? &ndash;&gt;-->
-    <!--    <select id="getFolloweePosts" parameterType="Long" resultType="com.team.togethart.dto.follow.FollowAddRequest">-->
-    <!--        SELECT a.*-->
-    <!--        FROM artwork a-->
-    <!--        INNER JOIN follow f ON a.member_id = f.followee_id-->
-    <!--        WHERE f.follower_id = #{memberId}-->
-    <!--    </select>-->
-
-    <!-- 나를 팔로우 하는 사람들 수 -->
-
-
-    <!-- 내가 팔로우 한 사람들의 수-->
+    <!-- 팔로우한 사람의 그림 가져오기? -->
+    <select id="getfollowart" parameterType="Long" resultType="com.team.togethart.dto.follow.FollowArtwork">
+        SELECT u.artwork_id, u.resource_pathname
+        FROM upload_file u
+        INNER JOIN artwork a ON u.artwork_id = a.artwork_id
+        WHERE EXISTS (
+        SELECT 1
+        FROM follow f
+        WHERE f.follow_to = a.member_id
+        AND f.follow_from = #{memberId}
+        )
+    </select>
 
 
     <!-- 내가 팔로우 하는 사람들의 이름 리스트-->
@@ -74,6 +82,20 @@
         WHERE
         f.follow_to
         = #{member_id}
+    </select>
+
+    <!-- 내가 팔로우한 사람들의 수 가져오기 -->
+    <select id="getfollowfromcount" parameterType="Long" resultType="int">
+        SELECT COUNT(*)
+        FROM follow
+        WHERE follow_from = #{memberId}
+    </select>
+
+    <!-- 나를 팔로우한 사람들의 수 가져오기 -->
+    <select id="getfollowtocount" parameterType="Long" resultType="int">
+        SELECT COUNT(*)
+        FROM follow
+        WHERE follow_to = #{memberId}
     </select>
 
 </mapper>

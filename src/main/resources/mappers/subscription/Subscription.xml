@@ -5,7 +5,7 @@
 <mapper namespace="com.team.togethart.repository.subscription.SubscriptionMapper">
 
     <!-- 구독 하기 -->
-    <insert id="insertSubscription" parameterType="com.team.togethart.dto.subscription.SubscriptionAddRequest">
+    <insert id="insertSubscription" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
         INSERT
         INTO subscription
         (subscribe_from
@@ -13,10 +13,11 @@
         , start_date
         , expire_date)
         VALUES
-        (#{subscribe_from}
-        , #{subscribe_to}
+        (#{subscribeFrom}
+        , #{subscribeTo}
         , NOW()
-        , DATEADD(MONTH, 1, NOW()))
+        , DATE_ADD(NOW(), INTERVAL 1 MONTH))
+
     </insert>
 
     <select id="getSubscription" resultType="long">
@@ -26,31 +27,60 @@
         subscription
         WHERE
         subscribe_to
-        = #{subscribe_to}
+        = #{subscribeTo}
         AND
         subscribe_from
-        = #{subscribe_from}
+        = #{subscribeFrom}
     </select>
 
-    <!-- 구독 자격 검증 !-->
-    <update id="updateMemberAuth" parameterType="com.team.togethart.dto.subscription.SubscriptionAuthRequest">
+    <!-- 이미 자격이 있는지 ?!-->
 
-        UPDATE member
-        SET member_auth = CASE
+    <select id="isMemberAuthExists" parameterType="java.lang.Long" resultType="boolean">
+        SELECT member_auth
+        FROM member
+        WHERE member_id = #{memberId};
+    </select>
+
+    <!-- 구독자를 받을 자격이 있는지 ? -->
+    <select id="isCertified" parameterType="java.lang.Long" resultType="boolean">
+        SELECT
+        CASE
         WHEN (
         SELECT COUNT(*)
         FROM ARTWORK
-        WHERE ARTWORK.member_id = #{member_id}
-        AND ARTWORK.like_count >= 100
+        WHERE member_id = #{memberId}
         ) >= 10
+        AND (
+        SELECT SUM(like_count)
+        FROM ARTWORK
+        WHERE member_id = #{memberId}
+        ) >= 100
         THEN 1
         ELSE 0
-        END
-        WHERE member_id = #{member_id}
+        END AS result;
+    </select>
+
+
+
+    <!-- 구독 자격 업데이트-->
+    <update id="updateMemberAuth" parameterType="com.team.togethart.dto.subscription.SubscriptionAuth">
+
+        UPDATE member
+        SET member_auth = 1
+        WHERE member_id = #{memberId}
     </update>
 
+
+    <!-- 구독 권한 보내주기 -->
+    <select id="getAuthStatus" resultType="java.lang.Integer">
+        SELECT member_auth
+        FROM member
+        WHERE member_id = #{memberId}
+    </select>
+
+
     <!-- 내가 구독하는 사람들의 이름 리스트-->
-    <select id="getsubscribefrom" resultType="com.team.togethart.dto.subscription.InfoResponseDTO">
+    <select id="getsubscribefrom" resultType="com.team.togethart.dto.subscription.SubscriptionInfo">
         SELECT
         m.member_username AS memberUsername,
         s.START_DATE AS startDate,
@@ -62,11 +92,13 @@
         ON
         s.subscribe_from = m.member_id
         where
-        subscribe_to = #{member_id}
+        s.subscribe_to = #{member_id}
+
+
     </select>
 
     <!-- 나를 구독하는 사람들의 이름 리스트-->
-    <select id="getsubscribeto" resultType="com.team.togethart.dto.subscription.InfoResponseDTO">
+    <select id="getsubscribeto" resultType="com.team.togethart.dto.subscription.SubscriptionInfo">
 
         SELECT
         m.member_username AS memberUsername,
@@ -80,17 +112,33 @@
         s.subscribe_to = m.member_id
         WHERE
         s.subscribe_from = #{member_id}
+
     </select>
 
     <!-- 만료시간 전 구독 취소하기-->
-    
 
-    <delete id="deletesub" parameterType="com.team.togethart.dto.subscription.DeleteSubDTO">
-        DELETE FROM subscription
+
+    <delete id="deletesub" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        DELETE
+        FROM subscription
         WHERE subscribe_from
         = #{subscribeFrom}
         AND subscribe_to
         = #{subscribeTo}
     </delete>
+
+    <!-- 구독자 전용 작품 보기 -->
+    <select id="getsubimage" parameterType="Long" resultType="com.team.togethart.dto.subscription.SubscriptionImage">
+        SELECT  u.artwork_id, u.resource_pathname
+
+        from upload_file u
+        JOIN artwork a ON u.artwork_id = a.artwork_id
+        join subscription s on a.member_id = s.subscribe_to
+        where s.subscribe_from = #{memberId}
+        and a.artwork_scope = 1;
+
+    </select>
+
+
 
 </mapper>

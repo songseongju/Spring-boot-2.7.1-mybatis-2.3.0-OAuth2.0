@@ -616,95 +616,6 @@ progress {
   margin-left: auto;
 }
 
-.image-center-super {
-  margin-top: 2rem;
-  display: flex;
-  max-height: 46rem;
-  width: 100vw;
-  height: 100vw;
-}
-
-.image-center {
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.artwork-data-super {
-  margin: 0 auto;
-  /* height: 1; */
-  width: 80%;
-}
-
-.artwork-data {
-
-}
-
-.member-profile {
-  margin: 50px auto;
-  display: flex;
-
-}
-
-.member-image-container {
-  width: 75px;
-  height: 75px;
-  overflow: hidden;
-  margin-right: 1.5rem;
-}
-
-.member-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.member-username {
-  margin:auto 0;
-}
-
-.follow-btn {
-  margin: auto 0 auto 1.5rem;
-}
-
-.transparent-btn {
-  border: 0;
-  background-color: transparent;
-  color: #fff;
-}
-
-.artwork-category-container {
-  margin-top: 2rem;
-}
-
-.artwork-description {
-  margin-top: 2rem;
-}
-
-.comment-container {
-  margin-top: 2rem;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  
-}
-
-.comment-list-container {
-  margin-top: 2rem;
-}
-
-.comment-unit {
-  display: flex;
-  margin-bottom: 10rem;
-}
-
-.comment-form {
-  display: flex;
-}
-
-.comment-textarea {
-  width: 80%;
-}
-
 .input-container {
   width: 300px;
   margin-top: 50px;
@@ -731,9 +642,6 @@ progress {
   width: 100%;
 }
 
-/****************************************************
-
-*****************************************************/
 
 .lead {
   font-size: 1.25rem;

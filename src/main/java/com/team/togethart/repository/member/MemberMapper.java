@@ -1,9 +1,8 @@
 package com.team.togethart.repository.member;
 
-import com.team.togethart.dto.follow.FollowAddRequest;
 import com.team.togethart.dto.member.MemberAddRequest;
+import com.team.togethart.dto.member.MemberPwUpdateRequest;
 import com.team.togethart.dto.member.MemberUpdateRequest;
-import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,13 +12,14 @@ import java.util.List;
 public interface MemberMapper {
 
 
+
+
     static void deleteByUserId(String userEmail) {
 
     }
 
     // 로그인
     MemberAddRequest findById(String memberEmail);
-    MemberAddRequest findByPwd (String memberPwd);
     MemberAddRequest findByName(String memberUsername);
     MemberAddRequest findByeRegiType(String memberRegiType);
 
@@ -44,7 +44,7 @@ public interface MemberMapper {
     List<String> findUserIdsByNameAndEmail(@Param("memberUsername") String name);
     
     
-    //아이디 가져오기
+    //이메일로 정보 가져오기
     MemberAddRequest getCommonInfoById(String commonId);
 
     int deleteBooked(int sId, List<String> seatNumList); //추가
@@ -56,4 +56,31 @@ public interface MemberMapper {
 
 
     MemberAddRequest findByEmail(@Param("memberEmail") String email , @Param("memberUsername") String username);
+
+
+    //비밀번호 변경
+
+    void modifyPwd(MemberPwUpdateRequest memberPwUpdateRequest);
+
+
+
+
+    //-----------------------------------------------------------------------------------------------//
+    
+    // 비밀번호 찾아오기
+    MemberAddRequest findByPwd (String memberPwd);
+
+    //Email 찾아오기
+
+    MemberAddRequest getMemberByEmail(String memberEmail);
+
+    
+    // 회원탈퇴
+
+    void deleteMemberByEmail(String memberemail);
+
+    // 임시비밀번호 업데이트
+    void updateUserPassword(MemberAddRequest memberAddRequest);
 }
+
+

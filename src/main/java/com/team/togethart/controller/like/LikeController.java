@@ -39,16 +39,32 @@ public class LikeController {
         }
     }
 
-//    @PostMapping("/likeFind")
-//    public ResponseEntity<?> likeDetails(@RequestBody LikeRequest likeRequest) {
-//        // 결과 0 이면 좋아요 기능 작동 가능
-//        // 결과 0 이 아니면 좋아요 취고 시능 작동 가능을 알림.
-//        return ResponseEntity.ok(likeService.findLike(likeRequest));
+    @GetMapping("/hasLike/{artworkId}/{memberId}")
+    public ResponseEntity<Object> hasLike(
+            @PathVariable("artworkId") Long artworkId,
+            @PathVariable("memberId") Long memberId) {
+
+        likeRequest.setArtworkId(artworkId);
+        likeRequest.setMemberId(memberId);
+
+//        Map<String, Integer> map = new HashMap<String, Integer>();
 //
-//    }
+//        if (likeService.findLike(likeRequest) == 0) {
+//            map.put("hasLike", 0);
+//        } else if (likeService.findLike(likeRequest) == 1) {
+//            map.put("hasLike", 1);
+//        }
+        // 결과 0 이면 좋아요 기능 작동 가능
+        // 결과 1 이면 좋아요 취고 시능 작동 가능을 알림.
+        return likeService.findLike(likeRequest) == 0
+            || likeService.findLike(likeRequest) == 1
+                ? ResponseEntity.status(200).body(likeService.findLike(likeRequest))
+                : ResponseEntity.status(400).body(likeService.findLike(likeRequest));
+
+    }
 
     @GetMapping("/likeCount/{artworkId}")
-    public ResponseEntity<?> likeCount(
+    public ResponseEntity<Integer> likeCount(
             @PathVariable("artworkId") Long artworkId) {
 
         likeService.countLike(artworkId);
